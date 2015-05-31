@@ -42,6 +42,7 @@ class Constant
 	const FORM_SETTINGS_SUBJECT_PREFIX=self::FORM_SETTINGS.'_subjectprefix' ;
 	const FORM_SETTINGS_PUBLIC_KEY=self::FORM_SETTINGS.'_publickey' ;
 	const FORM_SETTINGS_PRIVATE_KEY=self::FORM_SETTINGS.'_privatekey' ;
+	const FORM_SETTINGS_CAPTCHA_THEME=self::FORM_SETTINGS.'_captchatheme' ;
 	
 	// Form fields
 	const FIELD_NAME=self::PLUGIN_NAMESPACE.'_name' ;
@@ -62,13 +63,14 @@ function admin_init()
 	register_setting(Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_SUBJECT_PREFIX) ;
 	register_setting(Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PUBLIC_KEY) ;
 	register_setting(Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PRIVATE_KEY) ;
+	register_setting(Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_CAPTCHA_THEME) ;
 	
 	add_settings_section(Constant::FORM_SETTINGS,'Settings',null,Constant::FORM_SETTINGS) ;
 	add_settings_field(Constant::FORM_SETTINGS_SEND_TO,'Send email to:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_SEND_TO) ;
 	add_settings_field(Constant::FORM_SETTINGS_SUBJECT_PREFIX,'Prefix email subject with:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_SUBJECT_PREFIX) ;
 	add_settings_field(Constant::FORM_SETTINGS_PUBLIC_KEY,'Recpatcha public key:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PUBLIC_KEY) ;
 	add_settings_field(Constant::FORM_SETTINGS_PRIVATE_KEY,'Recpatcha private key:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PRIVATE_KEY) ;
-	
+	add_settings_field(Constant::FORM_SETTINGS_CAPTCHA_THEME,'Recpatcha theme:', __NAMESPACE__.'\captcha_theme_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_CAPTCHA_THEME) ;
 }
 
 function admin_menu()
@@ -80,6 +82,13 @@ function input_callback($option)
 {
 	$value=get_option($option) ;
 	echo "<input id=\"$option\" name=\"$option\" type=\"text\" size=\"64\" value=\"$value\" />" ;
+}
+
+function captcha_theme_callback($option)
+{
+	$value=get_option($option) ;
+	echo "<fieldset><label><input id=\"$option\" name=\"$option\" type=\"radio\" value=\"light\" ".($value=='dark'?'':'checked').'/>Light</label><br />' ;
+	echo "<label><input id=\"$option\" name=\"$option\" type=\"radio\" value=\"dark\" ".($value=='dark'?'checked':'').'/>Dark</label><br /></fieldset>' ;
 }
 
 function options_page()
@@ -145,7 +154,8 @@ function shortcode()
 					<div id="<?php echo Constant::FIELD_MESSAGE; ?>_error" class="error"></div>
 				</td>
 			</tr>
-			<tr><th></th><td><div class="g-recaptcha" data-sitekey="<?php echo get_option(Constant::FORM_SETTINGS_PUBLIC_KEY); ?>"></div></td></tr>
+			<tr><th></th><td><div class="g-recaptcha" data-sitekey="<?php echo get_option(Constant::FORM_SETTINGS_PUBLIC_KEY); ?>"
+					data-theme="<?php echo get_option(Constant::FORM_SETTINGS_CAPTCHA_THEME,'light'); ?>"></div></td></tr>
 			<tr><th></th><td><input id="submitButton" type="submit" onclick="xdevl.contactform.submit(); return false;"  class="button small" value="Send message" /></td></tr>
 		</tbody>
 	</table>
