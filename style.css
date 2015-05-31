@@ -10,9 +10,20 @@
 	vertical-align: top ;
 }
 
-#xdevl_contactform th
+@media only screen and (min-width: 40em)
 {
-	width: 20% ;
+	#xdevl_contactform th
+	{
+		width: 20% ;
+	}
+}
+
+@media only screen and (max-width: 40em)
+{
+	#xdevl_contactform th, #xdevl_contactform td
+	{
+		display: block ;
+	}
 }
 
 #xdevl_contactform .error
@@ -38,17 +49,17 @@
 {
 	padding: 0.4em 1em;
 	margin: 1em 0 ;
-	font-size: 0.8em ;
+	font-size: 0.9em ;
 }
 
 #xdevl_contactform .xdevl_success
 {
 	color: white ;
-	background-color: #3a945b ;
+	background-color: green ;
 }
 
 #xdevl_contactform .xdevl_alert
 {
 	color: white ;
-	background-color: #f04124 ;
+	background-color: red ;
 }
