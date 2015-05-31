@@ -70,9 +70,9 @@ function admin_init()
 	add_settings_section(Constant::FORM_SETTINGS,'Settings',null,Constant::FORM_SETTINGS) ;
 	add_settings_field(Constant::FORM_SETTINGS_SEND_TO,'Send email to:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_SEND_TO) ;
 	add_settings_field(Constant::FORM_SETTINGS_SUBJECT_PREFIX,'Prefix email subject with:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_SUBJECT_PREFIX) ;
-	add_settings_field(Constant::FORM_SETTINGS_PUBLIC_KEY,'Recpatcha public key:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PUBLIC_KEY) ;
-	add_settings_field(Constant::FORM_SETTINGS_PRIVATE_KEY,'Recpatcha private key:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PRIVATE_KEY) ;
-	add_settings_field(Constant::FORM_SETTINGS_CAPTCHA_THEME,'Recpatcha theme:', __NAMESPACE__.'\captcha_theme_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_CAPTCHA_THEME) ;
+	add_settings_field(Constant::FORM_SETTINGS_PUBLIC_KEY,'Recaptcha public key:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PUBLIC_KEY) ;
+	add_settings_field(Constant::FORM_SETTINGS_PRIVATE_KEY,'Recaptcha private key:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PRIVATE_KEY) ;
+	add_settings_field(Constant::FORM_SETTINGS_CAPTCHA_THEME,'Recaptcha theme:', __NAMESPACE__.'\captcha_theme_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_CAPTCHA_THEME) ;
 	add_settings_field(Constant::FORM_SETTINGS_FOUNDATION_ALERT,'Use foundation alert styles:', __NAMESPACE__.'\foundation_styles_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_FOUNDATION_ALERT) ;
 }
 
