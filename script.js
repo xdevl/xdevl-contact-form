@@ -39,7 +39,7 @@ jQuery(function($)
 		if(result.formSuccess)
 		{
 			$("#"+xdevl.contactform.FORM_ALERT_ID).text(result.formSuccess) ;
-			$("#"+xdevl.contactform.FORM_ALERT_ID).attr("class","xdevl_alert-box xdevl_success") ;
+			$("#"+xdevl.contactform.FORM_ALERT_ID).attr("class",xdevl.contactform.ALERT_SUCCESS_CLASSES) ;
 			
 			$("#"+xdevl.contactform.FORM_ID).trigger("reset") ;
 			grecaptcha.reset() ;
@@ -47,7 +47,7 @@ jQuery(function($)
 		else
 		{
 			$("#"+xdevl.contactform.FORM_ALERT_ID).text(result.formError) ;
-			$("#"+xdevl.contactform.FORM_ALERT_ID).attr("class","xdevl_alert-box xdevl_alert") ;
+			$("#"+xdevl.contactform.FORM_ALERT_ID).attr("class",xdevl.contactform.ALERT_ERROR_CLASSES) ;
 		}
 	} ;
 }) ;

@@ -43,6 +43,7 @@ class Constant
 	const FORM_SETTINGS_PUBLIC_KEY=self::FORM_SETTINGS.'_publickey' ;
 	const FORM_SETTINGS_PRIVATE_KEY=self::FORM_SETTINGS.'_privatekey' ;
 	const FORM_SETTINGS_CAPTCHA_THEME=self::FORM_SETTINGS.'_captchatheme' ;
+	const FORM_SETTINGS_FOUNDATION_ALERT=self::FORM_SETTINGS.'_foundationalert' ;
 	
 	// Form fields
 	const FIELD_NAME=self::PLUGIN_NAMESPACE.'_name' ;
@@ -64,6 +65,7 @@ function admin_init()
 	register_setting(Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PUBLIC_KEY) ;
 	register_setting(Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PRIVATE_KEY) ;
 	register_setting(Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_CAPTCHA_THEME) ;
+	register_setting(Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_FOUNDATION_ALERT) ;
 	
 	add_settings_section(Constant::FORM_SETTINGS,'Settings',null,Constant::FORM_SETTINGS) ;
 	add_settings_field(Constant::FORM_SETTINGS_SEND_TO,'Send email to:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_SEND_TO) ;
@@ -71,6 +73,7 @@ function admin_init()
 	add_settings_field(Constant::FORM_SETTINGS_PUBLIC_KEY,'Recpatcha public key:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PUBLIC_KEY) ;
 	add_settings_field(Constant::FORM_SETTINGS_PRIVATE_KEY,'Recpatcha private key:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PRIVATE_KEY) ;
 	add_settings_field(Constant::FORM_SETTINGS_CAPTCHA_THEME,'Recpatcha theme:', __NAMESPACE__.'\captcha_theme_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_CAPTCHA_THEME) ;
+	add_settings_field(Constant::FORM_SETTINGS_FOUNDATION_ALERT,'Use foundation alert styles:', __NAMESPACE__.'\foundation_styles_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_FOUNDATION_ALERT) ;
 }
 
 function admin_menu()
@@ -89,6 +92,12 @@ function captcha_theme_callback($option)
 	$value=get_option($option) ;
 	echo "<fieldset><label><input id=\"$option\" name=\"$option\" type=\"radio\" value=\"light\" ".($value=='dark'?'':'checked').'/>Light</label><br />' ;
 	echo "<label><input id=\"$option\" name=\"$option\" type=\"radio\" value=\"dark\" ".($value=='dark'?'checked':'').'/>Dark</label><br /></fieldset>' ;
+}
+
+function foundation_styles_callback($option)
+{
+	$value=get_option($option) ;
+	echo "<input id=\"$option\" name=\"$option\" type=\"checkbox\" ".($value?'checked':'').' />' ;
 }
 
 function options_page()
@@ -118,6 +127,8 @@ function shortcode()
 	xdevl.contactform.FORM_ID="<?php echo Constant::FORM_ID; ?>" ;
 	xdevl.contactform.FORM_ALERT_ID="<?php echo Constant::FORM_ALERT_ID; ?>" ;
 	xdevl.contactform.FIELD_CAPTCHA="<?php echo Constant::FIELD_CAPTCHA; ?>" ;
+	xdevl.contactform.ALERT_SUCCESS_CLASSES="<?php if(get_option(Constant::FORM_SETTINGS_FOUNDATION_ALERT))echo 'alert-box success'; else echo 'xdevl_alert-box xdevl_success' ?>" ;
+	xdevl.contactform.ALERT_ERROR_CLASSES="<?php if(get_option(Constant::FORM_SETTINGS_FOUNDATION_ALERT))echo 'alert-box alert'; else echo 'xdevl_alert-box xdevl_alert' ?>" ;
 </script>
 
 <form id="<?php echo Constant::FORM_ID; ?>">
