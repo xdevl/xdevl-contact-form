@@ -1,0 +1,54 @@
+#xdevl_contactform table
+{
+	width: 100% ;
+}
+
+#xdevl_contactform table, #xdevl_contactform tr, #xdevl_contactform td, #xdevl_contactform th
+{
+	border: none ;
+	background-color: transparent ;
+	vertical-align: top ;
+}
+
+#xdevl_contactform th
+{
+	width: 20% ;
+}
+
+#xdevl_contactform .error
+{
+	color: red ;
+	font-size: 0.9em ;
+	font-style: italic ;
+}
+
+#xdevl_contactform_name, #xdevl_contactform_email
+{
+	max-width: 32em  ;
+}
+
+#xdevl_contactform_message
+{
+	width: 100% ;
+	height: 10em ;
+	resize: vertical ;
+}
+
+#xdevl_contactform .xdevl_alert-box
+{
+	padding: 0.4em 1em;
+	margin: 1em 0 ;
+	font-size: 0.8em ;
+}
+
+#xdevl_contactform .xdevl_success
+{
+	color: white ;
+	background-color: #3a945b ;
+}
+
+#xdevl_contactform .xdevl_alert
+{
+	color: white ;
+	background-color: #f04124 ;
+}
