@@ -51,5 +51,10 @@ jQuery(function($)
 			$("#"+xdevl.contactform.FORM_ALERT_ID).text(result.formError) ;
 			$("#"+xdevl.contactform.FORM_ALERT_ID).attr("class",xdevl.contactform.ALERT_ERROR_CLASSES) ;
 		}
+		
+		// we scroll up to the form alert to let the user know what happened
+		$('html,body').animate({
+			scrollTop: $("#"+xdevl.contactform.FORM_ALERT_ID).offset().top
+		},100) ;
 	} ;
 }) ;
