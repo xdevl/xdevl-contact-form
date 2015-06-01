@@ -220,10 +220,10 @@ function wp_ajax()
 				$subject=filter_var($_POST[Constant::FIELD_SUBJECT],FILTER_SANITIZE_STRING) ;
 				$message=filter_var($_POST[Constant::FIELD_MESSAGE],FILTER_SANITIZE_STRING) ;
 				
-				$header='From: '.$name.'<'.$email.'>\r\n'
-						.'Reply-to: '.$email.'\r\n'
-						.'Content-type: text/plain; charset=UTF-8\r\n'
-						.'X-mailer: PHP/'.phpversion().'\r\n' ;
+				$header="From: $name <$email>\r\n"
+						."Reply-to: $email\r\n"
+						."Content-type: text/plain; charset=UTF-8\r\n"
+						.'X-mailer: PHP/'.phpversion()."\r\n" ;
 						
 				if(mail(get_option(Constant::FORM_SETTINGS_SEND_TO),get_option(Constant::FORM_SETTINGS_SUBJECT_PREFIX).$subject,$message,$header))
 					$result->formSuccess='Your message has been sent successfully, thank you' ;
