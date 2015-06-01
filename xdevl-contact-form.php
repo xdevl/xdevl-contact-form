@@ -114,6 +114,7 @@ function options_page()
 
 function shortcode()
 {
+	wp_enqueue_script(PLUGIN_NAMESPACE.'_script') ;
 	ob_start() ;
 ?>
 <script type="text/javascript">
@@ -175,8 +176,7 @@ function shortcode()
 
 function wp_enqueue_scripts()
 {
-	wp_register_script(PLUGIN_NAMESPACE.'_script',plugins_url('script.js',__FILE__),array('jquery','jquery-form','underscore')) ;
-	wp_enqueue_script(PLUGIN_NAMESPACE.'_script') ;
+	wp_register_script(PLUGIN_NAMESPACE.'_script',plugins_url('script.js',__FILE__),array('jquery','jquery-form','underscore'),null,true) ;
 	
 	wp_register_style(PLUGIN_NAMESPACE.'_style',plugins_url('style.css',__FILE__)) ;
 	wp_enqueue_style(PLUGIN_NAMESPACE.'_style') ;
