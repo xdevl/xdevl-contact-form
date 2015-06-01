@@ -14,7 +14,7 @@ jQuery(function($)
 	xdevl.contactform.submit=function ()
 	{
 		// clear the form alert message to notify the user something is going on
-		$("#"+xdevl.contactform.FORM_ALERT_ID).text(null) ;
+		$("#"+xdevl.contactform.FORM_ALERT_ID).text("") ;
 		$("#"+xdevl.contactform.FORM_ALERT_ID).attr("class",null) ;
 		
 		$.post(xdevl.contactform.AJAX_URL,
@@ -27,7 +27,9 @@ jQuery(function($)
 				}
 				xdevl.contactform.updateForm(response) ;
 			}
-		) ;
+		).fail(function(xhr,textStatus,errorThrown) {
+			xdevl.contactform.updateForm({formError: 'Looks like the server is unavailable, please try again in a few minutes', fieldErrors: []}) ;
+		}) ;
 	} ;
 	
 	xdevl.contactform.updateForm=function (result)
