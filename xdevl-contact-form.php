@@ -31,54 +31,51 @@ namespace xdevl\contactform
 defined('ABSPATH') or die('No script kiddies please!') ;
 
 $load_resources=false ;
-	
-class Constant
-{
-	const PLUGIN_NAMESPACE='xdevl_contactform' ;
-	
-	// Form setting
-	const FORM_SETTINGS=self::PLUGIN_NAMESPACE ;
-	const FORM_SETTINGS_SEND_TO=self::FORM_SETTINGS.'_sendto' ;
-	const FORM_SETTINGS_SUBJECT_PREFIX=self::FORM_SETTINGS.'_subjectprefix' ;
-	const FORM_SETTINGS_PUBLIC_KEY=self::FORM_SETTINGS.'_publickey' ;
-	const FORM_SETTINGS_PRIVATE_KEY=self::FORM_SETTINGS.'_privatekey' ;
-	const FORM_SETTINGS_CAPTCHA_THEME=self::FORM_SETTINGS.'_captchatheme' ;
-	const FORM_SETTINGS_FOUNDATION_ALERT=self::FORM_SETTINGS.'_foundationalert' ;
-	
-	// Form fields
-	const FIELD_NAME=self::PLUGIN_NAMESPACE.'_name' ;
-	const FIELD_EMAIL=self::PLUGIN_NAMESPACE.'_email' ;
-	const FIELD_SUBJECT=self::PLUGIN_NAMESPACE.'_subject' ;
-	const FIELD_MESSAGE=self::PLUGIN_NAMESPACE.'_message' ;
-	const FIELD_CAPTCHA=self::PLUGIN_NAMESPACE.'_captcha' ;
-	
-	// Javascript constants
-	const AJAX_ACTION=self::PLUGIN_NAMESPACE ;
-	const FORM_ID=self::PLUGIN_NAMESPACE ;
-	const FORM_ALERT_ID=self::PLUGIN_NAMESPACE.'_alert' ;
-}
+
+define(__NAMESPACE__.'\PLUGIN_NAMESPACE','xdevl_contactform') ;
+
+// Form setting
+define(__NAMESPACE__.'\FORM_SETTINGS',PLUGIN_NAMESPACE) ;
+define(__NAMESPACE__.'\FORM_SETTINGS_SEND_TO',PLUGIN_NAMESPACE.'_sendto') ;
+define(__NAMESPACE__.'\FORM_SETTINGS_SUBJECT_PREFIX',PLUGIN_NAMESPACE.'_subjectprefix') ;
+define(__NAMESPACE__.'\FORM_SETTINGS_PUBLIC_KEY',PLUGIN_NAMESPACE.'_publickey') ;
+define(__NAMESPACE__.'\FORM_SETTINGS_PRIVATE_KEY',PLUGIN_NAMESPACE.'_privatekey') ;
+define(__NAMESPACE__.'\FORM_SETTINGS_CAPTCHA_THEME',PLUGIN_NAMESPACE.'_captchatheme') ;
+define(__NAMESPACE__.'\FORM_SETTINGS_FOUNDATION_ALERT',PLUGIN_NAMESPACE.'_foundationalert') ;
+
+// Form fields
+define(__NAMESPACE__.'\FIELD_NAME',PLUGIN_NAMESPACE.'_name') ;
+define(__NAMESPACE__.'\FIELD_EMAIL',PLUGIN_NAMESPACE.'_email') ;
+define(__NAMESPACE__.'\FIELD_SUBJECT',PLUGIN_NAMESPACE.'_subject') ;
+define(__NAMESPACE__.'\FIELD_MESSAGE',PLUGIN_NAMESPACE.'_message') ;
+define(__NAMESPACE__.'\FIELD_CAPTCHA',PLUGIN_NAMESPACE.'_captcha') ;
+
+// Javascript constants
+define(__NAMESPACE__.'\AJAX_ACTION',PLUGIN_NAMESPACE) ;
+define(__NAMESPACE__.'\FORM_ID',PLUGIN_NAMESPACE) ;
+define(__NAMESPACE__.'\FORM_ALERT_ID',PLUGIN_NAMESPACE.'_alert') ;
 
 function admin_init()
 {
-	register_setting(Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_SEND_TO) ;
-	register_setting(Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_SUBJECT_PREFIX) ;
-	register_setting(Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PUBLIC_KEY) ;
-	register_setting(Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PRIVATE_KEY) ;
-	register_setting(Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_CAPTCHA_THEME) ;
-	register_setting(Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_FOUNDATION_ALERT) ;
+	register_setting(FORM_SETTINGS,FORM_SETTINGS_SEND_TO) ;
+	register_setting(FORM_SETTINGS,FORM_SETTINGS_SUBJECT_PREFIX) ;
+	register_setting(FORM_SETTINGS,FORM_SETTINGS_PUBLIC_KEY) ;
+	register_setting(FORM_SETTINGS,FORM_SETTINGS_PRIVATE_KEY) ;
+	register_setting(FORM_SETTINGS,FORM_SETTINGS_CAPTCHA_THEME) ;
+	register_setting(FORM_SETTINGS,FORM_SETTINGS_FOUNDATION_ALERT) ;
 	
-	add_settings_section(Constant::FORM_SETTINGS,'Settings',null,Constant::FORM_SETTINGS) ;
-	add_settings_field(Constant::FORM_SETTINGS_SEND_TO,'Send email to:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_SEND_TO) ;
-	add_settings_field(Constant::FORM_SETTINGS_SUBJECT_PREFIX,'Prefix email subject with:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_SUBJECT_PREFIX) ;
-	add_settings_field(Constant::FORM_SETTINGS_PUBLIC_KEY,'Recaptcha public key:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PUBLIC_KEY) ;
-	add_settings_field(Constant::FORM_SETTINGS_PRIVATE_KEY,'Recaptcha private key:', __NAMESPACE__.'\input_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_PRIVATE_KEY) ;
-	add_settings_field(Constant::FORM_SETTINGS_CAPTCHA_THEME,'Recaptcha theme:', __NAMESPACE__.'\captcha_theme_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_CAPTCHA_THEME) ;
-	add_settings_field(Constant::FORM_SETTINGS_FOUNDATION_ALERT,'Use foundation alert styles:', __NAMESPACE__.'\foundation_styles_callback',Constant::FORM_SETTINGS,Constant::FORM_SETTINGS,Constant::FORM_SETTINGS_FOUNDATION_ALERT) ;
+	add_settings_section(FORM_SETTINGS,'Settings',null,FORM_SETTINGS) ;
+	add_settings_field(FORM_SETTINGS_SEND_TO,'Send email to:', __NAMESPACE__.'\input_callback',FORM_SETTINGS,FORM_SETTINGS,FORM_SETTINGS_SEND_TO) ;
+	add_settings_field(FORM_SETTINGS_SUBJECT_PREFIX,'Prefix email subject with:', __NAMESPACE__.'\input_callback',FORM_SETTINGS,FORM_SETTINGS,FORM_SETTINGS_SUBJECT_PREFIX) ;
+	add_settings_field(FORM_SETTINGS_PUBLIC_KEY,'Recaptcha public key:', __NAMESPACE__.'\input_callback',FORM_SETTINGS,FORM_SETTINGS,FORM_SETTINGS_PUBLIC_KEY) ;
+	add_settings_field(FORM_SETTINGS_PRIVATE_KEY,'Recaptcha private key:', __NAMESPACE__.'\input_callback',FORM_SETTINGS,FORM_SETTINGS,FORM_SETTINGS_PRIVATE_KEY) ;
+	add_settings_field(FORM_SETTINGS_CAPTCHA_THEME,'Recaptcha theme:', __NAMESPACE__.'\captcha_theme_callback',FORM_SETTINGS,FORM_SETTINGS,FORM_SETTINGS_CAPTCHA_THEME) ;
+	add_settings_field(FORM_SETTINGS_FOUNDATION_ALERT,'Use foundation alert styles:', __NAMESPACE__.'\foundation_styles_callback',FORM_SETTINGS,FORM_SETTINGS,FORM_SETTINGS_FOUNDATION_ALERT) ;
 }
 
 function admin_menu()
 {
-	add_options_page('XdevL contact form setup','XdevL contact form','manage_options',Constant::FORM_SETTINGS, __NAMESPACE__.'\options_page') ;
+	add_options_page('XdevL contact form setup','XdevL contact form','manage_options',FORM_SETTINGS, __NAMESPACE__.'\options_page') ;
 }
 
 function input_callback($option)
@@ -106,8 +103,8 @@ function options_page()
 <div>
 	<h2>XdevL contact form setup</h2>
 	<form method="post" action="options.php">
-		<?php settings_fields(Constant::FORM_SETTINGS) ;
-			do_settings_sections(Constant::FORM_SETTINGS) ;
+		<?php settings_fields(FORM_SETTINGS) ;
+			do_settings_sections(FORM_SETTINGS) ;
 			submit_button() ; ?>
 	</form>
 </div>
@@ -123,50 +120,50 @@ function shortcode()
 	var xdevl=xdevl || {} ;
 	xdevl.contactform=xdevl.contactform || {} ;
 	xdevl.contactform.AJAX_URL="<?php echo admin_url('admin-ajax.php'); ?>" ;
-	xdevl.contactform.AJAX_ACTION="<?php echo Constant::AJAX_ACTION; ?>" ;
-	xdevl.contactform.FORM_ID="<?php echo Constant::FORM_ID; ?>" ;
-	xdevl.contactform.FORM_ALERT_ID="<?php echo Constant::FORM_ALERT_ID; ?>" ;
-	xdevl.contactform.FIELD_CAPTCHA="<?php echo Constant::FIELD_CAPTCHA; ?>" ;
-	xdevl.contactform.ALERT_SUCCESS_CLASSES="<?php if(get_option(Constant::FORM_SETTINGS_FOUNDATION_ALERT))echo 'alert-box success'; else echo 'xdevl_alert-box xdevl_success' ?>" ;
-	xdevl.contactform.ALERT_ERROR_CLASSES="<?php if(get_option(Constant::FORM_SETTINGS_FOUNDATION_ALERT))echo 'alert-box alert'; else echo 'xdevl_alert-box xdevl_alert' ?>" ;
+	xdevl.contactform.AJAX_ACTION="<?php echo AJAX_ACTION; ?>" ;
+	xdevl.contactform.FORM_ID="<?php echo FORM_ID; ?>" ;
+	xdevl.contactform.FORM_ALERT_ID="<?php echo FORM_ALERT_ID; ?>" ;
+	xdevl.contactform.FIELD_CAPTCHA="<?php echo FIELD_CAPTCHA; ?>" ;
+	xdevl.contactform.ALERT_SUCCESS_CLASSES="<?php if(get_option(FORM_SETTINGS_FOUNDATION_ALERT))echo 'alert-box success'; else echo 'xdevl_alert-box xdevl_success' ?>" ;
+	xdevl.contactform.ALERT_ERROR_CLASSES="<?php if(get_option(FORM_SETTINGS_FOUNDATION_ALERT))echo 'alert-box alert'; else echo 'xdevl_alert-box xdevl_alert' ?>" ;
 </script>
 
-<form id="<?php echo Constant::FORM_ID; ?>">
+<form id="<?php echo FORM_ID; ?>">
 
-	<div id="<?php echo Constant::FORM_ALERT_ID; ?>"></div>
-	<input type="hidden" name="action" value="<?php echo Constant::AJAX_ACTION; ?>" />
+	<div id="<?php echo FORM_ALERT_ID; ?>"></div>
+	<input type="hidden" name="action" value="<?php echo AJAX_ACTION; ?>" />
 	<table class="form-table">
 		<tbody>
 			<tr>
-				<th scope="row"><label for="<?php echo Constant::FIELD_NAME; ?>">Name:</label></th>
+				<th scope="row"><label for="<?php echo FIELD_NAME; ?>">Name:</label></th>
 				<td>
-					<input id="<?php echo Constant::FIELD_NAME; ?>" name="<?php echo Constant::FIELD_NAME; ?>" type="text" size="32" />
-					<div id="<?php echo Constant::FIELD_NAME; ?>_error" class="error"></div>
+					<input id="<?php echo FIELD_NAME; ?>" name="<?php echo FIELD_NAME; ?>" type="text" size="32" />
+					<div id="<?php echo FIELD_NAME; ?>_error" class="error"></div>
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><label for="<?php echo Constant::FIELD_EMAIL; ?>">Email:</label></th>
+				<th scope="row"><label for="<?php echo FIELD_EMAIL; ?>">Email:</label></th>
 				<td>
-					<input id="<?php echo Constant::FIELD_EMAIL; ?>" name="<?php echo Constant::FIELD_EMAIL; ?>" type="text" />
-					<div id="<?php echo Constant::FIELD_EMAIL; ?>_error" class="error"></div>
+					<input id="<?php echo FIELD_EMAIL; ?>" name="<?php echo FIELD_EMAIL; ?>" type="text" />
+					<div id="<?php echo FIELD_EMAIL; ?>_error" class="error"></div>
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><label for="<?php echo Constant::FIELD_SUBJECT; ?>">Subject:</label></th>
+				<th scope="row"><label for="<?php echo FIELD_SUBJECT; ?>">Subject:</label></th>
 				<td>
-					<input id="<?php echo Constant::FIELD_SUBJECT; ?>" name="<?php echo Constant::FIELD_SUBJECT; ?>" type="text" size="64" />
-					<div id="<?php echo Constant::FIELD_SUBJECT; ?>_error" class="error"></div>
+					<input id="<?php echo FIELD_SUBJECT; ?>" name="<?php echo FIELD_SUBJECT; ?>" type="text" size="64" />
+					<div id="<?php echo FIELD_SUBJECT; ?>_error" class="error"></div>
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><label for="<?php echo Constant::FIELD_MESSAGE; ?>">Message:</label></th>
+				<th scope="row"><label for="<?php echo FIELD_MESSAGE; ?>">Message:</label></th>
 				<td>
-					<textarea id="<?php echo Constant::FIELD_MESSAGE; ?>" name="<?php echo Constant::FIELD_MESSAGE; ?>"></textarea>
-					<div id="<?php echo Constant::FIELD_MESSAGE; ?>_error" class="error"></div>
+					<textarea id="<?php echo FIELD_MESSAGE; ?>" name="<?php echo FIELD_MESSAGE; ?>"></textarea>
+					<div id="<?php echo FIELD_MESSAGE; ?>_error" class="error"></div>
 				</td>
 			</tr>
-			<tr><th></th><td><div class="g-recaptcha" data-sitekey="<?php echo get_option(Constant::FORM_SETTINGS_PUBLIC_KEY); ?>"
-					data-theme="<?php echo get_option(Constant::FORM_SETTINGS_CAPTCHA_THEME,'light'); ?>"></div></td></tr>
+			<tr><th></th><td><div class="g-recaptcha" data-sitekey="<?php echo get_option(FORM_SETTINGS_PUBLIC_KEY); ?>"
+					data-theme="<?php echo get_option(FORM_SETTINGS_CAPTCHA_THEME,'light'); ?>"></div></td></tr>
 			<tr><th></th><td><input id="submitButton" type="submit" onclick="xdevl.contactform.submit(); return false;"  class="button small" value="Send message" /></td></tr>
 		</tbody>
 	</table>
@@ -178,18 +175,18 @@ function shortcode()
 
 function wp_enqueue_scripts()
 {
-	wp_register_script(Constant::PLUGIN_NAMESPACE.'_script',plugins_url('script.js',__FILE__),array('jquery','jquery-form','underscore')) ;
-	wp_enqueue_script(Constant::PLUGIN_NAMESPACE.'_script') ;
+	wp_register_script(PLUGIN_NAMESPACE.'_script',plugins_url('script.js',__FILE__),array('jquery','jquery-form','underscore')) ;
+	wp_enqueue_script(PLUGIN_NAMESPACE.'_script') ;
 	
-	wp_register_style(Constant::PLUGIN_NAMESPACE.'_style',plugins_url('style.css',__FILE__)) ;
-	wp_enqueue_style(Constant::PLUGIN_NAMESPACE.'_style') ;
+	wp_register_style(PLUGIN_NAMESPACE.'_style',plugins_url('style.css',__FILE__)) ;
+	wp_enqueue_style(PLUGIN_NAMESPACE.'_style') ;
 }
 
 function wp_ajax()
 {
 	$result=new \stdClass ;
 	$result->fieldErrors=array() ;
-	$fields=array(Constant::FIELD_NAME,Constant::FIELD_EMAIL,Constant::FIELD_SUBJECT,Constant::FIELD_MESSAGE) ;
+	$fields=array(FIELD_NAME,FIELD_EMAIL,FIELD_SUBJECT,FIELD_MESSAGE) ;
 	$error=false ;
 	foreach($fields as $field)
 	{
@@ -197,35 +194,35 @@ function wp_ajax()
 		$result->fieldErrors[$field.'_error']=empty($_POST[$field])?'this field can\'t be blank':'' ;
 	}
 	
-	if(!$error && ($error=!filter_var($_POST[Constant::FIELD_EMAIL],FILTER_VALIDATE_EMAIL)))
-		$result->fieldErrors[Constant::FIELD_EMAIL.'_error']='this is not a valid email address' ;
+	if(!$error && ($error=!filter_var($_POST[FIELD_EMAIL],FILTER_VALIDATE_EMAIL)))
+		$result->fieldErrors[FIELD_EMAIL.'_error']='this is not a valid email address' ;
 	
 	if($error)
 		$result->formError='Please fix the errors below' ;
 	else
 	{
-		if(empty($_POST[Constant::FIELD_CAPTCHA]))
+		if(empty($_POST[FIELD_CAPTCHA]))
 			$result->formError='Please prove you are not a bot by ticking the appropriate checkbox' ;
 		else
 		{
 			require_once(plugin_dir_path (__FILE__).'recaptchalib.php');
-			$recaptcha=new \ReCaptcha(get_option(Constant::FORM_SETTINGS_PRIVATE_KEY)) ;
-			$response=$recaptcha->verifyResponse($_SERVER["REMOTE_ADDR"], $_POST[Constant::FIELD_CAPTCHA]) ;
+			$recaptcha=new \ReCaptcha(get_option(FORM_SETTINGS_PRIVATE_KEY)) ;
+			$response=$recaptcha->verifyResponse($_SERVER["REMOTE_ADDR"], $_POST[FIELD_CAPTCHA]) ;
 			if($response==null || !$response->success)
 				$result->formError='Captcha verifaction failed' ;
 			else
 			{	
-				$name=filter_var($_POST[Constant::FIELD_NAME],FILTER_SANITIZE_STRING) ;
-				$email=filter_var($_POST[Constant::FIELD_EMAIL],FILTER_SANITIZE_EMAIL) ;
-				$subject=filter_var($_POST[Constant::FIELD_SUBJECT],FILTER_SANITIZE_STRING) ;
-				$message=filter_var($_POST[Constant::FIELD_MESSAGE],FILTER_SANITIZE_STRING) ;
+				$name=filter_var($_POST[FIELD_NAME],FILTER_SANITIZE_STRING) ;
+				$email=filter_var($_POST[FIELD_EMAIL],FILTER_SANITIZE_EMAIL) ;
+				$subject=filter_var($_POST[FIELD_SUBJECT],FILTER_SANITIZE_STRING) ;
+				$message=filter_var($_POST[FIELD_MESSAGE],FILTER_SANITIZE_STRING) ;
 				
 				$header="From: $name <do_not_reply@".$_SERVER['SERVER_NAME'].">\r\n"
 						."Reply-to: $email\r\n"
 						."Content-type: text/plain; charset=UTF-8\r\n"
 						.'X-mailer: PHP/'.phpversion()."\r\n" ;
 						
-				if(mail(get_option(Constant::FORM_SETTINGS_SEND_TO),get_option(Constant::FORM_SETTINGS_SUBJECT_PREFIX).$subject,$message,$header))
+				if(mail(get_option(FORM_SETTINGS_SEND_TO),get_option(FORM_SETTINGS_SUBJECT_PREFIX).$subject,$message,$header))
 					$result->formSuccess='Your message has been sent successfully, thank you' ;
 				else $result->formError='An error occured while trying to send your message, please retry in a few minutes' ;
 			}
@@ -241,8 +238,8 @@ add_action('wp_enqueue_scripts',__NAMESPACE__.'\wp_enqueue_scripts') ;
 
 if(is_admin())
 {
-	add_action('wp_ajax_'.Constant::AJAX_ACTION,__NAMESPACE__.'\wp_ajax') ;
-	add_action('wp_ajax_nopriv_'.Constant::AJAX_ACTION,__NAMESPACE__.'\wp_ajax') ;
+	add_action('wp_ajax_'.AJAX_ACTION,__NAMESPACE__.'\wp_ajax') ;
+	add_action('wp_ajax_nopriv_'.AJAX_ACTION,__NAMESPACE__.'\wp_ajax') ;
 	add_action('admin_menu',__NAMESPACE__.'\admin_menu') ;
 	add_action('admin_init',__NAMESPACE__.'\admin_init') ;
 }
