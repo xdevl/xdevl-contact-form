@@ -30,8 +30,6 @@ namespace xdevl\contactform
 
 defined('ABSPATH') or die('No script kiddies please!') ;
 
-$load_resources=false ;
-
 define(__NAMESPACE__.'\PLUGIN_NAMESPACE','xdevl_contactform') ;
 
 // Form setting
