@@ -204,10 +204,10 @@ function wp_ajax()
 			$result->formError='Please prove you are not a bot by ticking the appropriate checkbox' ;
 		else
 		{
-			require_once(plugin_dir_path (__FILE__).'recaptchalib.php');
-			$recaptcha=new \ReCaptcha(get_option(FORM_SETTINGS_PRIVATE_KEY)) ;
-			$response=$recaptcha->verifyResponse($_SERVER["REMOTE_ADDR"], $_POST[FIELD_CAPTCHA]) ;
-			if($response==null || !$response->success)
+			require_once(plugin_dir_path (__FILE__).'vendor/autoload.php');
+			$recaptcha=new \ReCaptcha\ReCaptcha(get_option(FORM_SETTINGS_PRIVATE_KEY)) ;
+			$response=$recaptcha->verify($_POST[FIELD_CAPTCHA],$_SERVER["REMOTE_ADDR"]) ;
+			if($response==null || !$response->isSuccess())
 				$result->formError='Captcha verifaction failed' ;
 			else
 			{	
