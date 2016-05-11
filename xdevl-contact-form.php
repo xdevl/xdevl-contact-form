@@ -134,10 +134,28 @@ function options_page()
 <?php
 }
 
+function get_alert_success_classes()
+{
+	return get_option(FORM_SETTINGS_FOUNDATION_ALERT)?'alert-box success':'xdevl_alert-box xdevl_success' ;
+}
+
+function get_alert_error_classes()
+{
+	return get_option(FORM_SETTINGS_FOUNDATION_ALERT)?'alert-box alert':'xdevl_alert-box xdevl_alert' ;
+}
+
 function shortcode()
 {
 	wp_enqueue_script(PLUGIN_NAMESPACE.'_script') ;
 	wp_enqueue_script('recaptcha') ;
+	
+	if(!get_option(FORM_SETTINGS_SEND_TO))
+		$plugin_error='Send email to' ;
+	else if(!get_option(FORM_SETTINGS_PUBLIC_KEY))
+		$plugin_error='Recaptcha public key' ;
+	else if(!get_option(FORM_SETTINGS_PRIVATE_KEY))
+		$plugin_error='Recaptcha private key' ;
+	
 	ob_start() ;
 ?>
 <script type="text/javascript">
@@ -148,13 +166,15 @@ function shortcode()
 	xdevl.contactform.FORM_ID="<?php echo FORM_ID; ?>" ;
 	xdevl.contactform.FORM_ALERT_ID="<?php echo FORM_ALERT_ID; ?>" ;
 	xdevl.contactform.FIELD_CAPTCHA="<?php echo FIELD_CAPTCHA; ?>" ;
-	xdevl.contactform.ALERT_SUCCESS_CLASSES="<?php if(get_option(FORM_SETTINGS_FOUNDATION_ALERT))echo 'alert-box success'; else echo 'xdevl_alert-box xdevl_success' ?>" ;
-	xdevl.contactform.ALERT_ERROR_CLASSES="<?php if(get_option(FORM_SETTINGS_FOUNDATION_ALERT))echo 'alert-box alert'; else echo 'xdevl_alert-box xdevl_alert' ?>" ;
+	xdevl.contactform.ALERT_SUCCESS_CLASSES="<?php echo get_alert_success_classes() ?>" ;
+	xdevl.contactform.ALERT_ERROR_CLASSES="<?php echo get_alert_error_classes() ?>" ;
 </script>
 
 <form id="<?php echo FORM_ID; ?>">
 
-	<div id="<?php echo FORM_ALERT_ID; ?>"></div>
+	<div id="<?php echo FORM_ALERT_ID; ?>" class="<?php if(!empty($plugin_error)) echo get_alert_error_classes(); ?>">
+		<?php if(!empty($plugin_error)) echo 'Missing plugin configuration setting: "'.$plugin_error.'".'; ?>
+	</div>
 	<input type="hidden" name="action" value="<?php echo AJAX_ACTION; ?>" />
 	<table class="form-table">
 		<tbody>
@@ -188,7 +208,13 @@ function shortcode()
 			</tr>
 			<tr><th></th><td><div class="g-recaptcha" data-sitekey="<?php echo get_option(FORM_SETTINGS_PUBLIC_KEY); ?>"
 					data-theme="<?php echo get_option(FORM_SETTINGS_CAPTCHA_THEME,'light'); ?>"></div></td></tr>
-			<tr><th></th><td><input id="submitButton" type="submit" onclick="xdevl.contactform.submit(); return false;"  class="button small" value="Send message" /></td></tr>
+			<tr>
+				<th></th>
+				<td>
+					<input id="submitButton" type="submit" onclick="xdevl.contactform.submit(); return false;"
+						class="button small" value="Send message" <?php if(!empty($plugin_error)) echo 'disabled'; ?> />
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </form>
