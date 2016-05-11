@@ -53,16 +53,18 @@ define(__NAMESPACE__.'\AJAX_ACTION',PLUGIN_NAMESPACE) ;
 define(__NAMESPACE__.'\FORM_ID',PLUGIN_NAMESPACE) ;
 define(__NAMESPACE__.'\FORM_ALERT_ID',PLUGIN_NAMESPACE.'_alert') ;
 
+define(__NAMESPACE__.'\URL_RECAPTCHA_ADMIN',"https://www.google.com/recaptcha/admin") ;
+
 function admin_init()
 {
-	register_setting(FORM_SETTINGS,FORM_SETTINGS_SEND_TO) ;
+	register_setting(FORM_SETTINGS,FORM_SETTINGS_SEND_TO,__NAMESPACE__.'\validate_email') ;
 	register_setting(FORM_SETTINGS,FORM_SETTINGS_SUBJECT_PREFIX) ;
-	register_setting(FORM_SETTINGS,FORM_SETTINGS_PUBLIC_KEY) ;
-	register_setting(FORM_SETTINGS,FORM_SETTINGS_PRIVATE_KEY) ;
+	register_setting(FORM_SETTINGS,FORM_SETTINGS_PUBLIC_KEY,function($value){return validate_recaptcha_key($value,FORM_SETTINGS_PUBLIC_KEY,'public');}) ;
+	register_setting(FORM_SETTINGS,FORM_SETTINGS_PRIVATE_KEY,function($value){return validate_recaptcha_key($value,FORM_SETTINGS_PRIVATE_KEY,'private');}) ;
 	register_setting(FORM_SETTINGS,FORM_SETTINGS_CAPTCHA_THEME) ;
 	register_setting(FORM_SETTINGS,FORM_SETTINGS_FOUNDATION_ALERT) ;
 	
-	add_settings_section(FORM_SETTINGS,'Settings',null,FORM_SETTINGS) ;
+	add_settings_section(FORM_SETTINGS,null,null,FORM_SETTINGS) ;
 	add_settings_field(FORM_SETTINGS_SEND_TO,'Send email to:', __NAMESPACE__.'\input_callback',FORM_SETTINGS,FORM_SETTINGS,FORM_SETTINGS_SEND_TO) ;
 	add_settings_field(FORM_SETTINGS_SUBJECT_PREFIX,'Prefix email subject with:', __NAMESPACE__.'\input_callback',FORM_SETTINGS,FORM_SETTINGS,FORM_SETTINGS_SUBJECT_PREFIX) ;
 	add_settings_field(FORM_SETTINGS_PUBLIC_KEY,'Recaptcha public key:', __NAMESPACE__.'\input_callback',FORM_SETTINGS,FORM_SETTINGS,FORM_SETTINGS_PUBLIC_KEY) ;
@@ -75,6 +77,27 @@ function admin_menu()
 {
 	add_options_page('XdevL contact form setup','XdevL contact form','manage_options',FORM_SETTINGS, __NAMESPACE__.'\options_page') ;
 }
+
+function validate_email($value)
+{
+	if(!filter_var($value,FILTER_VALIDATE_EMAIL))
+	{
+		add_settings_error(FORM_SETTINGS_SEND_TO,'email','Invalid email address: "'.htmlspecialchars($value).'"') ;
+		return get_option(FORM_SETTINGS_SEND_TO) ;
+	}
+	else return filter_var($value,FILTER_SANITIZE_EMAIL) ;
+}
+
+function validate_recaptcha_key($value, $settings_key, $type)
+{
+	if(empty($value))
+	{
+		add_settings_error($settings_key,$type.'_key','Please enter your Google recaptcha '.$type.' key') ;
+		return get_option($settings_key) ;
+	}
+	else return trim($value) ;
+}
+
 
 function input_callback($option)
 {
@@ -98,8 +121,9 @@ function foundation_styles_callback($option)
 function options_page()
 {
 ?>
-<div>
-	<h2>XdevL contact form setup</h2>
+<div class="wrap">
+	<h1>XdevL contact form setup</h1>
+	<p>Register your website on the <a href="<?php echo URL_RECAPTCHA_ADMIN; ?>">Google recaptcha admin page</a> in order to get your pair of public/private keys.</p>
 	<form method="post" action="options.php">
 		<?php settings_fields(FORM_SETTINGS) ;
 			do_settings_sections(FORM_SETTINGS) ;
