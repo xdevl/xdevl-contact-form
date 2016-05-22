@@ -70,7 +70,7 @@ function admin_init()
 	add_settings_field(FORM_SETTINGS_PUBLIC_KEY,'Recaptcha public key:', __NAMESPACE__.'\input_callback',FORM_SETTINGS,FORM_SETTINGS,FORM_SETTINGS_PUBLIC_KEY) ;
 	add_settings_field(FORM_SETTINGS_PRIVATE_KEY,'Recaptcha private key:', __NAMESPACE__.'\input_callback',FORM_SETTINGS,FORM_SETTINGS,FORM_SETTINGS_PRIVATE_KEY) ;
 	add_settings_field(FORM_SETTINGS_CAPTCHA_THEME,'Recaptcha theme:', __NAMESPACE__.'\captcha_theme_callback',FORM_SETTINGS,FORM_SETTINGS,FORM_SETTINGS_CAPTCHA_THEME) ;
-	add_settings_field(FORM_SETTINGS_FOUNDATION_ALERT,'Use foundation alert styles:', __NAMESPACE__.'\foundation_styles_callback',FORM_SETTINGS,FORM_SETTINGS,FORM_SETTINGS_FOUNDATION_ALERT) ;
+	add_settings_field(FORM_SETTINGS_FOUNDATION_ALERT,'Use foundation 6 alert styles:', __NAMESPACE__.'\foundation_styles_callback',FORM_SETTINGS,FORM_SETTINGS,FORM_SETTINGS_FOUNDATION_ALERT) ;
 }
 
 function admin_menu()
@@ -136,12 +136,12 @@ function options_page()
 
 function get_alert_success_classes()
 {
-	return get_option(FORM_SETTINGS_FOUNDATION_ALERT)?'alert-box success':'xdevl_alert-box xdevl_success' ;
+	return get_option(FORM_SETTINGS_FOUNDATION_ALERT)?'callout success':'xdevl_alert-box xdevl_success' ;
 }
 
 function get_alert_error_classes()
 {
-	return get_option(FORM_SETTINGS_FOUNDATION_ALERT)?'alert-box alert':'xdevl_alert-box xdevl_alert' ;
+	return get_option(FORM_SETTINGS_FOUNDATION_ALERT)?'callout alert':'xdevl_alert-box xdevl_alert' ;
 }
 
 function shortcode()

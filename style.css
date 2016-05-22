@@ -1,6 +1,7 @@
 #xdevl_contactform table
 {
 	width: 100% ;
+	border-collapse: separate ;
 }
 
 #xdevl_contactform table, #xdevl_contactform tr, #xdevl_contactform td, #xdevl_contactform th
@@ -26,13 +27,6 @@
 	}
 }
 
-#xdevl_contactform .error
-{
-	color: red ;
-	font-size: 0.9em ;
-	font-style: italic ;
-}
-
 #xdevl_contactform_name, #xdevl_contactform_email
 {
 	max-width: 32em  ;
@@ -49,7 +43,6 @@
 {
 	padding: 0.4em 1em;
 	margin: 1em 0 ;
-	font-size: 0.9em ;
 }
 
 #xdevl_contactform .xdevl_success
